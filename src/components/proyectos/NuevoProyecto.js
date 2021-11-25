@@ -1,6 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { ProyectoContext } from '../../context/proyectos/proyectoContext';
 
 export const NuevoProyecto = () => {
+    
+    //Obtener el state del formulario
+    const { formulario, mostrarFormulario } = useContext( ProyectoContext )
+
 
     const [proyecto, setProyecto] = useState({
         nombre: ""
@@ -28,31 +33,36 @@ export const NuevoProyecto = () => {
 
     return (
         <>
-            <buttn
+            <button
                 type="button"
                 className="btn btn-block btn-primario"
+                onClick={ mostrarFormulario }
             >
                 Nuevo Proyecto
-            </buttn>
-            <form
-                className="formulario-nuevo-proyecto"
-                onSubmit={handleSubmitProyecto}
-            >
-                <input 
-                    type="text"
-                    className="input-text"
-                    placeholder="Nombre Proyecto"
-                    name="nombre"
-                    onChange={handleProyecto}
-                    value={nombre}
-                />
+            </button>
+            {
+                formulario && 
 
-                <input 
-                    type="submit"
-                    className="btn btn-primario btn-block"
-                    value="Agregar Proyecto"
-                />
-            </form>
+                <form
+                    className="formulario-nuevo-proyecto"
+                    onSubmit={handleSubmitProyecto}
+                >
+                    <input 
+                        type="text"
+                        className="input-text"
+                        placeholder="Nombre Proyecto"
+                        name="nombre"
+                        onChange={handleProyecto}
+                        value={nombre}
+                    />
+
+                    <input 
+                        type="submit"
+                        className="btn btn-primario btn-block"
+                        value="Agregar Proyecto"
+                    />
+                </form>
+            }
         </>
     )
 }
