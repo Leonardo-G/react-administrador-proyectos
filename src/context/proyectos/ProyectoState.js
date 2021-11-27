@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { AGREGAR_PROYECTO, FORMULARIO_PROYECTO, OBTENER_PROYECTO, PROYECTO_ACTUAL, VALIDAR_FORMULARIO } from "../../types";
+import { AGREGAR_PROYECTO, ELIMINAR_PROYECTO, FORMULARIO_PROYECTO, OBTENER_PROYECTO, PROYECTO_ACTUAL, VALIDAR_FORMULARIO } from "../../types";
 import { ProyectoContext } from "./proyectoContext";
 import { proyectoReducer } from "./proyectoReducer";
 import { v4 as uuidv4 } from 'uuid';
@@ -63,6 +63,14 @@ export const ProyectoState = (props) => {
         })
     }
 
+    //Elimina eun proyecto
+    const eliminarProyecto = id => {
+        dispatch({
+            type: ELIMINAR_PROYECTO,
+            payload: id
+        })
+    }
+
     return (
         <ProyectoContext.Provider value={{
             formulario: state.formulario,
@@ -73,7 +81,8 @@ export const ProyectoState = (props) => {
             obtenerProyecto,
             agregarProyecto,
             mostrarError,
-            proyectoActual
+            proyectoActual,
+            eliminarProyecto
         }}>
             {props.children}
         </ProyectoContext.Provider>

@@ -13,7 +13,7 @@ export const ListadoProyectos = () => {
     }, [])
 
     //Revisa si proyecto tiene contenido
-    if( proyectos.length === 0 ) return null;
+    if( proyectos.length === 0 ) return <p>No hay proyectos, comienze creando uno </p>;
 
 
     return (

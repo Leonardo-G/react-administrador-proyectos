@@ -4,7 +4,7 @@ import { Tarea } from './Tarea'
 
 export const ListadoTarea = () => {
 
-    const { proyecto } = useContext(ProyectoContext);
+    const { proyecto, eliminarProyecto } = useContext(ProyectoContext);
 
     //Si no hay proyectoseleccionado
     if(!proyecto) return <h2>Selecciona un proyecto</h2>;
@@ -15,6 +15,10 @@ export const ListadoTarea = () => {
         { nombre: "Elegir PLataforma de pago", estado: false},
         { nombre: "Elegir Hosting", estado: true},
     ]
+
+    const handleEliminarProyecto = () => {
+        eliminarProyecto( proyecto.id )
+    }
 
     return (
         <>
@@ -33,6 +37,7 @@ export const ListadoTarea = () => {
             <button
                 type="button"
                 className="btn btn-eliminar"
+                onClick={ handleEliminarProyecto }
             >
                 Eliminar Proyecto &times;
             </button>
