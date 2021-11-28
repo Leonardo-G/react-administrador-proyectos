@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { AGREGAR_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREAS_PROYECTO, VALIDAR_TAREA } from '../../types'
+import { ACTUALIZAR_TAREA, AGREGAR_TAREA, ELIMINAR_TAREA, ESTADO_TAREA, TAREAS_PROYECTO, TAREA_ACTUAL, VALIDAR_TAREA } from '../../types'
 import { TareaContext } from './tareaContext'
 import { tareaReducer } from './tareaReducer'
 
@@ -23,7 +23,8 @@ const initialState = {
         { id: 16, idProyecto: 4, nombre: "Elegir Hosting", estado: true},
     ],
     tareasProyecto: null,
-    errorTarea: false
+    errorTarea: false,
+    tareaSeleccionada: null
 }
 
 export const TareaState = ({children}) => {
@@ -72,17 +73,36 @@ export const TareaState = ({children}) => {
         })
     }
 
+    //Extrae una tarea para edicion
+    const guardarTareaActual = (tarea) => {
+        dispatch({
+            type: TAREA_ACTUAL,
+            payload: tarea
+        })
+    }
+
+    //Edita o modifica una tarea
+    const actualizarTarea = tarea => {
+        dispatch({
+            type: ACTUALIZAR_TAREA,
+            payload: tarea
+        })
+    }
+
     return (
         <TareaContext.Provider
             value={{
                 tareas: state.tareas,
                 tareasProyecto: state.tareasProyecto,
                 errorTarea: state.errorTarea,
+                tareaSeleccionada: state.tareaSeleccionada,
                 obtenerTareas,
                 agregarTarea,
                 validarTarea,
                 eliminarTarea,
-                cambiarEstadoTarea
+                cambiarEstadoTarea,
+                guardarTareaActual,
+                actualizarTarea
             }}
         >
             { children }

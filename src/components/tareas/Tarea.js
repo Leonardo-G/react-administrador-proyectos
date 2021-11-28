@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, cambiarEstadoTarea }) => {
+export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, cambiarEstadoTarea, guardarTareaActual }) => {
 
     const handleEiminar = (id) => {
         eliminarTarea(id);
@@ -14,6 +14,11 @@ export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, cambiarEs
             tarea.estado = true
         }
         cambiarEstadoTarea(tarea)
+    }
+
+    //Agregar una tarea actual cuando el usuario desee editarla
+    const seleccionarTarea = (tarea) => {
+        guardarTareaActual(tarea)
     }
 
     return (
@@ -40,6 +45,7 @@ export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, cambiarEs
                 <button 
                     type="button"
                     className="btn btn-primario"
+                    onClick={ () => seleccionarTarea(tarea) }
                 >
                     Editar
                 </button>
