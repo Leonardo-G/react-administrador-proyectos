@@ -1,6 +1,21 @@
 import React from 'react'
 
-export const Tarea = ({ tarea }) => {
+export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, cambiarEstadoTarea }) => {
+
+    const handleEiminar = (id) => {
+        eliminarTarea(id);
+        obtenerTareas(proyecto.id);
+    }
+
+    const cambiarEstado = tarea => {
+        if(tarea.estado){
+            tarea.estado = false
+        }else{
+            tarea.estado = true
+        }
+        cambiarEstadoTarea(tarea)
+    }
+
     return (
         <li className="tarea sombre">
             <p>{ tarea.nombre }</p>
@@ -10,11 +25,13 @@ export const Tarea = ({ tarea }) => {
                     ?   <button
                             type="button"
                             className="completo"
+                            onClick={ () => cambiarEstado(tarea) }
                         > Completo</button>
                     
                     :   <button
                             type="button"
                             className="incompleto"
+                            onClick={ () => cambiarEstado(tarea) }
                         >Incompleto</button>   
 
                 }
@@ -29,6 +46,7 @@ export const Tarea = ({ tarea }) => {
                 <button
                     type="button"
                     className="btn btn-secundario"
+                    onClick={ () => handleEiminar(tarea.id) }
                 > Eliminar</button>
 
             </div>
