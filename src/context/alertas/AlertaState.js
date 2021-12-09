@@ -3,14 +3,13 @@ import { MOSTRAR_ALERTA, OCULTAR_ALERTA } from '../../types'
 import { AlertaContext } from './alertaContext'
 import { alertaReducer } from './alertaReducer'
 
+export const AlertaState = ({ children }) => {
 
-export const AlertaState = ({ children}) => {
     const initialState = {
         alerta: null
     }
 
-
-    const [state, dispatch] = useReducer(alertaReducer, initialState)
+    const [state, dispatch] = useReducer( alertaReducer, initialState );
 
     //Funciones
     const mostrarAlerta = (msg, categoria) => {
@@ -31,10 +30,10 @@ export const AlertaState = ({ children}) => {
 
     return (
         <AlertaContext.Provider
-        value={{
-            alerta: state.alerta,
-            mostrarAlerta
-        }}
+            value={{
+                alerta: state.alerta,
+                mostrarAlerta
+            }}
         >
             { children }
         </AlertaContext.Provider>
