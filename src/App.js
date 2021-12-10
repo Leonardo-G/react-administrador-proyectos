@@ -10,14 +10,16 @@ import { NuevaCuenta } from "./components/auth/NuevaCuenta";
 import { Proyectos } from "./components/proyectos/Proyectos";
 import { AlertaState } from "./context/alertas/AlertaState";
 import { AuthContext } from "./context/autenticacion/authContext";
+import { AuthState } from "./context/autenticacion/AuthState";
 import { ProyectoState } from "./context/proyectos/ProyectoState";
 import { TareaState } from "./context/tareas/TareaState";
 
 function App() {
+
   return (
     <ProyectoState>
       <TareaState>
-        <AuthContext>
+        <AuthState>
           <AlertaState>
             <Router>
               <Switch>
@@ -27,7 +29,7 @@ function App() {
               </Switch>
             </Router>
           </AlertaState>
-        </AuthContext>
+        </AuthState>
       </TareaState>
     </ProyectoState>
   );

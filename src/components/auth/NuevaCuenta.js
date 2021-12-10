@@ -1,12 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AlertaContext } from '../../context/alertas/alertaContext';
+import { AuthContext } from '../../context/autenticacion/authContext';
 
 
 export const NuevaCuenta = () => {
     
     //Extraer los valores del context
     const { alerta, mostrarAlerta } = useContext( AlertaContext );
+    const { registrarUsuario } = useContext( AuthContext )
 
     const [usuario, setUsuario] = useState({
         nombre: "",
@@ -44,6 +46,11 @@ export const NuevaCuenta = () => {
         }
 
         //pasarle el action
+        registrarUsuario({ 
+            nombre,
+            email, 
+            password 
+        });
     }
 
     return (
@@ -62,7 +69,7 @@ export const NuevaCuenta = () => {
                     onSubmit={handleSubmit}
                 >
                     <div className="campo-form">
-                        <label htmlFor="nombre">Email</label>
+                        <label htmlFor="nombre">Nombre</label>
                         <input 
                             name="nombre"
                             id="nombre"
@@ -78,6 +85,7 @@ export const NuevaCuenta = () => {
                             name="email"
                             id="email"
                             type="email"
+                            autoComplete="username"
                             placeholder="Tu email"
                             onChange={handleChange}
                             value={email}
@@ -90,6 +98,7 @@ export const NuevaCuenta = () => {
                             id="password"
                             type="password"
                             placeholder="Tu Password"
+                            autoComplete="new-password"
                             onChange={handleChange}
                             value={password}
                         />
@@ -101,6 +110,7 @@ export const NuevaCuenta = () => {
                             id="confirmar"
                             type="password"
                             placeholder="Repite tu password"
+                            autoComplete="new-password"
                             onChange={handleChange}
                             value={confirmar}
                         />
