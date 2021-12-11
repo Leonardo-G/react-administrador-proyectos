@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { AlertaContext } from '../../context/alertas/alertaContext';
 import { AuthContext } from '../../context/autenticacion/authContext';
 
@@ -7,8 +7,9 @@ import { AuthContext } from '../../context/autenticacion/authContext';
 export const NuevaCuenta = () => {
     
     //Extraer los valores del context
+    const history = useHistory()
     const { alerta, mostrarAlerta } = useContext( AlertaContext );
-    const { registrarUsuario } = useContext( AuthContext )
+    const { mensaje, autenticado, registrarUsuario } = useContext( AuthContext )
 
     const [usuario, setUsuario] = useState({
         nombre: "",
@@ -19,6 +20,17 @@ export const NuevaCuenta = () => {
 
     const { nombre, email, password, confirmar } = usuario
 
+    useEffect(() => {
+        if( autenticado ){
+            history.push("/proyectos");
+        }
+
+        if( mensaje ){
+            mostrarAlerta( mensaje.msg, mensaje.categoria );
+        }
+
+    }, [ mensaje, autenticado ])
+    
     const handleChange = (e) => {
         setUsuario({
             ...usuario,
@@ -32,6 +44,13 @@ export const NuevaCuenta = () => {
         //VAlidar que no haya campos vacios.
         if( nombre.trim() === "" || email.trim() === "" || password.trim() === "" || confirmar.trim() === "" ){
             return mostrarAlerta("Todos los campos son obligatorios", "alerta-error");
+        }
+
+        //Validar email
+        const isEmail = (/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,4})$/i).test(email);
+
+        if(!isEmail){
+            return mostrarAlerta("Coloca un correo válido", "alerta-error")
         }
 
         //password minimo de 6 caracteres
