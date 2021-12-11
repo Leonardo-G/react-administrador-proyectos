@@ -125,7 +125,8 @@ export const AuthState = ({ children }) => {
                 usuario: state.usuario,
                 mensaje: state.mensaje,
                 registrarUsuario,
-                iniciarSesion
+                iniciarSesion,
+                usuarioAutenticado
             }}
         >
             { children }
