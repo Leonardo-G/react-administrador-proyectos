@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { LOGIN_ERROR, OBTENER_USUARIO, REGISTRO_ERROR, REGISTRO_EXITOSO } from '../../types'
+import { LOGIN_ERROR, LOGIN_EXITOSO, OBTENER_USUARIO, REGISTRO_ERROR, REGISTRO_EXITOSO } from '../../types'
 import { AuthContext } from './authContext'
 import { authReducer } from './authReducer'
 
@@ -77,6 +77,46 @@ export const AuthState = ({ children }) => {
         }
     }
 
+    //Cuando el usuario inicia sesion
+    const iniciarSesion = async datos => {
+        try {
+
+            const respuesta = await fetch(`http://localhost:4000/api/auth`, {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( datos )
+            })
+            const resultado = await respuesta.json();
+
+            if(!respuesta.ok){
+                console.log(respuesta.ok);
+                throw( resultado );
+            }
+            
+            //Si todo sale bien
+            dispatch({
+                type: LOGIN_EXITOSO,
+                payload: resultado
+            })
+            
+            usuarioAutenticado(resultado.token)
+
+        } catch (error) {
+            console.log(error);
+
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: {
+                    msg: error.msg,
+                    categoria: "alerta-error"
+                }
+            })
+        }
+    }
+
     return (
         <AuthContext.Provider 
             value={{
@@ -84,7 +124,8 @@ export const AuthState = ({ children }) => {
                 autenticado: state.autenticado,
                 usuario: state.usuario,
                 mensaje: state.mensaje,
-                registrarUsuario
+                registrarUsuario,
+                iniciarSesion
             }}
         >
             { children }
