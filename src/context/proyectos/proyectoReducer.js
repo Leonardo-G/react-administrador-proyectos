@@ -1,4 +1,4 @@
-import { AGREGAR_PROYECTO, ELIMINAR_PROYECTO, FORMULARIO_PROYECTO, OBTENER_PROYECTO, PROYECTO_ACTUAL, VALIDAR_FORMULARIO } from "../../types"
+import { AGREGAR_PROYECTO, ELIMINAR_PROYECTO, FORMULARIO_PROYECTO, OBTENER_PROYECTO, PROYECTO_ACTUAL, PROYECTO_ERROR, VALIDAR_FORMULARIO } from "../../types"
 
 export const proyectoReducer = (state, action) => {
     switch (action.type) {
@@ -27,14 +27,20 @@ export const proyectoReducer = (state, action) => {
         case PROYECTO_ACTUAL:
             return {
                 ...state,
-                proyecto: (state.proyectos.filter(proyecto => proyecto.id === action.payload))[0]
+                proyecto: (state.proyectos.filter(proyecto => proyecto._id === action.payload))[0]
             }
         case ELIMINAR_PROYECTO:
             return {
                 ...state,
-                proyectos: state.proyectos.filter(proyecto => proyecto.id !== action.payload),
+                proyectos: state.proyectos.filter(proyecto => proyecto._id !== action.payload),
                 proyecto: null
             }
+        case PROYECTO_ERROR:
+            return {
+                ...state,
+                mensaje: action.payload
+            }
+        
         default:
             return state
     }

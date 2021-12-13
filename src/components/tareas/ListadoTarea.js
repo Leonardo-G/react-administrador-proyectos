@@ -12,7 +12,8 @@ export const ListadoTarea = () => {
     if(!proyecto) return <h2>Selecciona un proyecto</h2>;
 
     const handleEliminarProyecto = () => {
-        eliminarProyecto( proyecto.id )
+        console.log(proyecto._id)
+        eliminarProyecto( proyecto._id )
     }
 
     return (

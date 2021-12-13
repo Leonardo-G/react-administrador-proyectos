@@ -6,7 +6,6 @@ export const NuevoProyecto = () => {
     //Obtener el state del formulario
     const { formulario, errorFormulario, mostrarFormulario, agregarProyecto, mostrarError } = useContext( ProyectoContext )
 
-
     const [proyecto, setProyecto] = useState({
         nombre: ""
     });
