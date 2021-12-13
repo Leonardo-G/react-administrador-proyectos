@@ -82,6 +82,7 @@ a {
   background-color: var(--gris2);
 }
 .btn-blank {
+  color: #fff;
   margin: 0;
   padding: 0;
   display: block;

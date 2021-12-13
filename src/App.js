@@ -13,6 +13,7 @@ import { AuthContext } from "./context/autenticacion/authContext";
 import { AuthState } from "./context/autenticacion/AuthState";
 import { ProyectoState } from "./context/proyectos/ProyectoState";
 import { TareaState } from "./context/tareas/TareaState";
+import { RutaPrivada } from "./routes/RutaPrivada";
 
 function App() {
 
@@ -25,7 +26,7 @@ function App() {
               <Switch>
                 <Route exact path="/" component={Login}/>
                 <Route exact path="/nueva-cuenta" component={NuevaCuenta}/>
-                <Route exact path="/proyectos" component={Proyectos}/>
+                <RutaPrivada exact path="/proyectos" component={Proyectos}/>
               </Switch>
             </Router>
           </AlertaState>

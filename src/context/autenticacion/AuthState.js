@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { LOGIN_ERROR, LOGIN_EXITOSO, OBTENER_USUARIO, REGISTRO_ERROR, REGISTRO_EXITOSO } from '../../types'
+import { CERRAR_SESION, LOGIN_ERROR, LOGIN_EXITOSO, OBTENER_USUARIO, REGISTRO_ERROR, REGISTRO_EXITOSO } from '../../types'
 import { AuthContext } from './authContext'
 import { authReducer } from './authReducer'
 
@@ -9,7 +9,8 @@ export const AuthState = ({ children }) => {
         token: localStorage.getItem("token"),
         autenticado: null,
         usuario: null,
-        mensaje: null
+        mensaje: null,
+        cargando: true
     }
 
     const [state, dispatch] = useReducer( authReducer, initialState );
@@ -63,6 +64,11 @@ export const AuthState = ({ children }) => {
                     "x-auth-token": token || getToken
                 }
             });
+
+            if(!respuesta.ok){
+                throw new Error()
+            }
+
             const { usuario } = await respuesta.json();
             console.log(usuario);
             dispatch({
@@ -117,6 +123,13 @@ export const AuthState = ({ children }) => {
         }
     }
 
+    //Cierra la sesión del usuario
+    const cerrarSesion = () => {
+        dispatch({
+            type: CERRAR_SESION
+        })
+    }
+
     return (
         <AuthContext.Provider 
             value={{
@@ -124,9 +137,11 @@ export const AuthState = ({ children }) => {
                 autenticado: state.autenticado,
                 usuario: state.usuario,
                 mensaje: state.mensaje,
+                cargando: state.cargando,
                 registrarUsuario,
                 iniciarSesion,
-                usuarioAutenticado
+                usuarioAutenticado,
+                cerrarSesion
             }}
         >
             { children }
