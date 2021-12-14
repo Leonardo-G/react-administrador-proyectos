@@ -65,20 +65,26 @@ export const TareaState = ({children}) => {
     }
 
     //Eliminar tarea por su id
-    const eliminarTarea = id => {
-        dispatch({
-            type: ELIMINAR_TAREA,
-            payload: id
-        })
+    const eliminarTarea = async id => {
+        try {
+            const respuesta = await fetch(`http://localhost:4000/api/tareas/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "x-auth-token": localStorage.getItem("token")
+                }
+            })
+            console.log(respuesta)
+            const resultado = await respuesta.json();
+            console.log(resultado)
+            dispatch({
+                type: ELIMINAR_TAREA,
+                payload: id
+            });
+        } catch (error) {
+            console.log(error);
+        }
     }
 
-    //Cambia el estado de cada tarea
-    const cambiarEstadoTarea = (tarea) => {
-        dispatch({
-            type: ESTADO_TAREA,
-            payload: tarea
-        })
-    }
 
     //Extrae una tarea para edicion
     const guardarTareaActual = (tarea) => {
@@ -89,11 +95,28 @@ export const TareaState = ({children}) => {
     }
 
     //Edita o modifica una tarea
-    const actualizarTarea = tarea => {
-        dispatch({
-            type: ACTUALIZAR_TAREA,
-            payload: tarea
-        })
+    const actualizarTarea = async tarea => {
+        console.log(tarea._id)
+        try {
+            const respuesta = await fetch(`http://localhost:4000/api/tareas/${tarea._id}`, {
+                method: "PUT",
+                body: JSON.stringify(tarea),
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-auth-token": localStorage.getItem("token")
+                }
+            })
+            const resultado = await respuesta.json()
+            console.log(resultado)
+
+            dispatch({
+                type: ACTUALIZAR_TAREA,
+                payload: tarea
+            })
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -106,7 +129,6 @@ export const TareaState = ({children}) => {
                 agregarTarea,
                 validarTarea,
                 eliminarTarea,
-                cambiarEstadoTarea,
                 guardarTareaActual,
                 actualizarTarea
             }}

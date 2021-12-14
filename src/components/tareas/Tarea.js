@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, cambiarEstadoTarea, guardarTareaActual }) => {
+export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, guardarTareaActual, actualizarTarea }) => {
 
     const handleEiminar = (id) => {
         eliminarTarea(id);
-        obtenerTareas(proyecto.id);
+        // obtenerTareas(proyecto.id);
     }
 
     const cambiarEstado = tarea => {
@@ -13,7 +13,7 @@ export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, cambiarEs
         }else{
             tarea.estado = true
         }
-        cambiarEstadoTarea(tarea)
+        actualizarTarea(tarea)
     }
 
     //Agregar una tarea actual cuando el usuario desee editarla
@@ -52,7 +52,7 @@ export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, cambiarEs
                 <button
                     type="button"
                     className="btn btn-secundario"
-                    onClick={ () => handleEiminar(tarea.id) }
+                    onClick={ () => handleEiminar(tarea._id) }
                 > Eliminar</button>
 
             </div>

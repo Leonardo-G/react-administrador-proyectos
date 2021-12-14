@@ -1,12 +1,11 @@
 import React, { useContext } from 'react'
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { ProyectoContext } from '../../context/proyectos/proyectoContext'
 import { TareaContext } from '../../context/tareas/tareaContext';
 import { Tarea } from './Tarea'
 
 export const ListadoTarea = () => {
     const { proyecto, eliminarProyecto } = useContext(ProyectoContext);
-    const { tareasProyecto, eliminarTarea, obtenerTareas, cambiarEstadoTarea, guardarTareaActual } = useContext(TareaContext)
+    const { tareasProyecto, eliminarTarea, obtenerTareas, guardarTareaActual, actualizarTarea } = useContext(TareaContext)
     //Si no hay proyectoseleccionado
     if(!proyecto) return <h2>Selecciona un proyecto</h2>;
 
@@ -27,7 +26,7 @@ export const ListadoTarea = () => {
 
                     :   
                             tareasProyecto.map( tarea => (
-                                    <Tarea key={ tarea._id } tarea={ tarea } eliminarTarea={ eliminarTarea } obtenerTareas={ obtenerTareas } proyecto={ proyecto } cambiarEstadoTarea={ cambiarEstadoTarea } guardarTareaActual={ guardarTareaActual }/>
+                                    <Tarea key={ tarea._id } tarea={ tarea } eliminarTarea={ eliminarTarea } obtenerTareas={ obtenerTareas } proyecto={ proyecto } actualizarTarea={ actualizarTarea } guardarTareaActual={ guardarTareaActual }/>
                             ) )
                         
                 }
