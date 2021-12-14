@@ -6,9 +6,9 @@ export const RutaPublica = ({ component: Component, ...rest}) => {
     const token = localStorage.getItem("token");
 
     return (
-        <Route { ...rest } render={ props => (
-             token 
-             && <Redirect to="/proyectos"/>
+        <Route { ...rest } render={ () => (
+             token ? <Redirect to="/proyectos"/>
+                   : <Component { ...rest }/>
         )}
 
         />
