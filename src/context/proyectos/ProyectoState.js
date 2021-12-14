@@ -26,7 +26,7 @@ export const ProyectoState = (props) => {
     //Obtener proyectos
     const obtenerProyecto = async () => {
         try {
-            const resultado = await fetch("http://localhost:4000/api/proyectos", {
+            const resultado = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/proyectos`, {
                 method: "GET",
                 headers: {
                     "x-auth-token": localStorage.getItem("token")
@@ -47,7 +47,7 @@ export const ProyectoState = (props) => {
     const agregarProyecto = async proyecto => {
 
         try {
-            const respuesta = await fetch( "http://localhost:4000/api/proyectos", {
+            const respuesta = await fetch( `${process.env.REACT_APP_BACKEND_URL}/api/proyectos`, {
                 method: "POST",
                 body: JSON.stringify( proyecto ),
                 headers: {
@@ -87,7 +87,7 @@ export const ProyectoState = (props) => {
     //Elimina eun proyecto
     const eliminarProyecto = async id => {
         try {
-            const respuesta = await fetch(`http://localhost:4000/api/proyectos/${id}`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/proyectos/${id}`, {
                 method: "DELETE",
                 headers:{
                     "x-auth-token": localStorage.getItem("token"),

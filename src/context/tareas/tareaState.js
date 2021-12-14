@@ -19,7 +19,7 @@ export const TareaState = ({children}) => {
     //Obtener las tareas de un proyecto
     const obtenerTareas = async id => {
         try {
-            const respuesta = await fetch(`http://localhost:4000/api/tareas/${id}`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tareas/${id}`, {
                 method: "GET",
                 headers: {
                     "x-auth-token": localStorage.getItem("token")
@@ -38,7 +38,7 @@ export const TareaState = ({children}) => {
     //Agregar una tarea al proyecto seleccionado
     const agregarTarea = async tarea => {
         try {
-            const respuesta = await fetch("http://localhost:4000/api/tareas", { 
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tareas`, { 
                 method: "POST",
                 body: JSON.stringify(tarea),
                 headers: {
@@ -67,7 +67,7 @@ export const TareaState = ({children}) => {
     //Eliminar tarea por su id
     const eliminarTarea = async id => {
         try {
-            const respuesta = await fetch(`http://localhost:4000/api/tareas/${id}`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tareas/${id}`, {
                 method: "DELETE",
                 headers: {
                     "x-auth-token": localStorage.getItem("token")
@@ -98,7 +98,7 @@ export const TareaState = ({children}) => {
     const actualizarTarea = async tarea => {
         console.log(tarea._id)
         try {
-            const respuesta = await fetch(`http://localhost:4000/api/tareas/${tarea._id}`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/tareas/${tarea._id}`, {
                 method: "PUT",
                 body: JSON.stringify(tarea),
                 headers: {

@@ -18,7 +18,7 @@ export const AuthState = ({ children }) => {
     //funciones
     const registrarUsuario = async (datos) => {
         try {
-            const respuesta = await fetch(`http://localhost:4000/api/usuarios`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/usuarios`, {
                 method: "POST",
                 body: JSON.stringify(datos),
                 headers: {
@@ -58,7 +58,7 @@ export const AuthState = ({ children }) => {
         const getToken = localStorage.getItem("token");
 
         try {
-            const respuesta = await fetch(`http://localhost:4000/api/auth`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth`, {
                 method: "GET",
                 headers: {
                     "x-auth-token": token || getToken
@@ -87,7 +87,7 @@ export const AuthState = ({ children }) => {
     const iniciarSesion = async datos => {
         try {
 
-            const respuesta = await fetch(`http://localhost:4000/api/auth`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth`, {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
