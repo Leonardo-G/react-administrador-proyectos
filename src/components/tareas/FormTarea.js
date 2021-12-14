@@ -45,23 +45,22 @@ export const FormTarea = () => {
         if(tareaSeleccionada === null){
             //Agregar una nueva tarea al state
             agregarTarea({
-                idProyecto: proyecto.id,
-                estado: false,
+                proyecto: proyecto._id,
                 nombre: tarea.nombre
             })
         }else{
             //Actualizar tarea existente
-            actualizarTarea(tarea)
+            actualizarTarea(tarea);
         }
 
 
         //Obtner tareas y filtrar el proyecto actual
-        obtenerTareas(proyecto.id)
+        obtenerTareas(proyecto._id);
 
         //Reiniciar el form
         setTarea({
             nombre: ""
-        })
+        });
     }
 
     return (

@@ -7,7 +7,6 @@ import { Tarea } from './Tarea'
 export const ListadoTarea = () => {
     const { proyecto, eliminarProyecto } = useContext(ProyectoContext);
     const { tareasProyecto, eliminarTarea, obtenerTareas, cambiarEstadoTarea, guardarTareaActual } = useContext(TareaContext)
-
     //Si no hay proyectoseleccionado
     if(!proyecto) return <h2>Selecciona un proyecto</h2>;
 
@@ -15,6 +14,7 @@ export const ListadoTarea = () => {
         console.log(proyecto._id)
         eliminarProyecto( proyecto._id )
     }
+
 
     return (
         <>
@@ -25,13 +25,11 @@ export const ListadoTarea = () => {
                     tareasProyecto.length === 0
                     ?   <li className="tarea"><p>No hay tareas</p></li>
 
-                    :   <TransitionGroup>
-                            {tareasProyecto.map( tarea => (
-                                <CSSTransition key={ tarea.id } timeout={200} classNames="tarea">
-                                    <Tarea tarea={ tarea } eliminarTarea={ eliminarTarea } obtenerTareas={ obtenerTareas } proyecto={ proyecto } cambiarEstadoTarea={ cambiarEstadoTarea } guardarTareaActual={ guardarTareaActual }/>
-                                </CSSTransition>
-                            ) )}
-                        </TransitionGroup>
+                    :   
+                            tareasProyecto.map( tarea => (
+                                    <Tarea key={ tarea._id } tarea={ tarea } eliminarTarea={ eliminarTarea } obtenerTareas={ obtenerTareas } proyecto={ proyecto } cambiarEstadoTarea={ cambiarEstadoTarea } guardarTareaActual={ guardarTareaActual }/>
+                            ) )
+                        
                 }
             </ul>
             <button

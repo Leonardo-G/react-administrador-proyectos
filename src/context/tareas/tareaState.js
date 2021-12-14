@@ -4,25 +4,7 @@ import { TareaContext } from './tareaContext'
 import { tareaReducer } from './tareaReducer'
 
 const initialState = {
-    tareas: [
-        { id: 1, idProyecto: 1, nombre: "Elegir PLataforma", estado: true},
-        { id: 2, idProyecto: 2, nombre: "Elegir Colores", estado: false},
-        { id: 3, idProyecto: 3, nombre: "Elegir PLataforma de pago", estado: false},
-        { id: 4, idProyecto: 4, nombre: "Elegir Hosting", estado: true},
-        { id: 5, idProyecto: 1, nombre: "Elegir PLataforma", estado: true},
-        { id: 6, idProyecto: 2, nombre: "Elegir Colores", estado: false},
-        { id: 7, idProyecto: 3, nombre: "Elegir PLataforma de pago", estado: false},
-        { id: 8, idProyecto: 4, nombre: "Elegir Hosting", estado: true},
-        { id: 9, idProyecto: 1, nombre: "Elegir PLataforma", estado: true},
-        { id: 10, idProyecto: 2, nombre: "Elegir Colores", estado: false},
-        { id: 11, idProyecto: 3, nombre: "Elegir PLataforma de pago", estado: false},
-        { id: 12, idProyecto: 4, nombre: "Elegir Hosting", estado: true},
-        { id: 13, idProyecto: 1, nombre: "Elegir PLataforma", estado: true},
-        { id: 14, idProyecto: 2, nombre: "Elegir Colores", estado: false},
-        { id: 15, idProyecto: 3, nombre: "Elegir PLataforma de pago", estado: false},
-        { id: 16, idProyecto: 4, nombre: "Elegir Hosting", estado: true},
-    ],
-    tareasProyecto: null,
+    tareasProyecto: [],
     errorTarea: false,
     tareaSeleccionada: null
 }
@@ -35,19 +17,44 @@ export const TareaState = ({children}) => {
     //Crear las funciones
 
     //Obtener las tareas de un proyecto
-    const obtenerTareas = id => {
-        dispatch({
-            type: TAREAS_PROYECTO,
-            payload: id
-        })
+    const obtenerTareas = async id => {
+        try {
+            const respuesta = await fetch(`http://localhost:4000/api/tareas/${id}`, {
+                method: "GET",
+                headers: {
+                    "x-auth-token": localStorage.getItem("token")
+                }
+            })
+            const resultado = await respuesta.json();
+            dispatch({
+                type: TAREAS_PROYECTO,
+                payload: resultado
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //Agregar una tarea al proyecto seleccionado
-    const agregarTarea = tarea => {
-        dispatch({
-            type: AGREGAR_TAREA,
-            payload: tarea
-        })
+    const agregarTarea = async tarea => {
+        try {
+            const respuesta = await fetch("http://localhost:4000/api/tareas", { 
+                method: "POST",
+                body: JSON.stringify(tarea),
+                headers: {
+                    // "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "x-auth-token": localStorage.getItem("token")
+                }
+            })
+            const resultado = await respuesta.json();
+            dispatch({
+                type: AGREGAR_TAREA,
+                payload: resultado
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     //Valida y muestra un error en caso de que sea necesario
@@ -92,7 +99,6 @@ export const TareaState = ({children}) => {
     return (
         <TareaContext.Provider
             value={{
-                tareas: state.tareas,
                 tareasProyecto: state.tareasProyecto,
                 errorTarea: state.errorTarea,
                 tareaSeleccionada: state.tareaSeleccionada,
