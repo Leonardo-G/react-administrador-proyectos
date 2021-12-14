@@ -96,9 +96,9 @@ export const TareaState = ({children}) => {
 
     //Edita o modifica una tarea
     const actualizarTarea = async tarea => {
-        console.log(tarea._id)
+        console.log(tarea)
         try {
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/tareas/${tarea._id}`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tareas/${tarea._id}`, {
                 method: "PUT",
                 body: JSON.stringify(tarea),
                 headers: {
@@ -106,8 +106,7 @@ export const TareaState = ({children}) => {
                     "x-auth-token": localStorage.getItem("token")
                 }
             })
-            const resultado = await respuesta.json()
-            console.log(resultado)
+            await respuesta.json()
 
             dispatch({
                 type: ACTUALIZAR_TAREA,
