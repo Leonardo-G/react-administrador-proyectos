@@ -9,6 +9,8 @@ export const RutaPrivada = ({ component: Component, ...props}) => {
     useEffect(() => {
         const token = localStorage.getItem("token")
         usuarioAutenticado(token);
+
+        //eslint-disable-next-line
     }, [])
     return (
         <Route { ...props } render={ props => !autenticado && !cargando
