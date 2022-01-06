@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { ProyectoContext } from '../../context/proyectos/proyectoContext';
+import { Spinner } from '../UI/Spinner';
 
 export const NuevoProyecto = () => {
     
@@ -9,6 +10,7 @@ export const NuevoProyecto = () => {
     const [proyecto, setProyecto] = useState({
         nombre: ""
     });
+    const [spinner, setSpinner] = useState(false)
 
     const { nombre } = proyecto
 
@@ -28,7 +30,10 @@ export const NuevoProyecto = () => {
             
             mostrarError();
             return;
+            
         }
+        
+        setSpinner(true);
 
         //agregar al state
         agregarProyecto(proyecto);
@@ -37,11 +42,17 @@ export const NuevoProyecto = () => {
         setProyecto({
             nombre: ""
         })
+
+        setSpinner(false)
     }
 
 
     return (
         <>
+            {
+                spinner &&
+                <Spinner />
+            }
             <button
                 type="button"
                 className="btn btn-block btn-primario"

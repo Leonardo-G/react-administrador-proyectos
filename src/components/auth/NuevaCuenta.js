@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { AlertaContext } from '../../context/alertas/alertaContext';
 import { AuthContext } from '../../context/autenticacion/authContext';
+import { Spinner } from '../UI/Spinner';
 
 
 export const NuevaCuenta = () => {
@@ -17,6 +18,7 @@ export const NuevaCuenta = () => {
         password: "",
         confirmar: ""
     })
+    const [spinner, setSpinner] = useState(false)
 
     const { nombre, email, password, confirmar } = usuario
 
@@ -63,6 +65,7 @@ export const NuevaCuenta = () => {
             return mostrarAlerta("Las constraseñas no son iguales", "alerta-error");
         
         }
+        setSpinner(true);
 
         //pasarle el action
         registrarUsuario({ 
@@ -70,10 +73,15 @@ export const NuevaCuenta = () => {
             email, 
             password 
         });
+        setSpinner(false)
     }
 
     return (
         <div className="form-usuario">
+            {
+                spinner &&
+                <Spinner />
+            }
             {
                 alerta 
                 ?   <div className={`alerta ${alerta.categoria}`}>
