@@ -70,7 +70,7 @@ export const AuthState = ({ children }) => {
             }
 
             const { usuario } = await respuesta.json();
-            console.log(usuario);
+            
             dispatch({
                 type: OBTENER_USUARIO,
                 payload: usuario

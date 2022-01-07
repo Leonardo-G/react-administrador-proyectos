@@ -73,9 +73,8 @@ export const TareaState = ({children}) => {
                     "x-auth-token": localStorage.getItem("token")
                 }
             })
-            console.log(respuesta)
-            const resultado = await respuesta.json();
-            console.log(resultado)
+            await respuesta.json();
+            
             dispatch({
                 type: ELIMINAR_TAREA,
                 payload: id
@@ -96,7 +95,6 @@ export const TareaState = ({children}) => {
 
     //Edita o modifica una tarea
     const actualizarTarea = async tarea => {
-        console.log(tarea)
         try {
             const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tareas/${tarea._id}`, {
                 method: "PUT",

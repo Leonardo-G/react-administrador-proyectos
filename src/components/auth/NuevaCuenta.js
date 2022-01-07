@@ -30,7 +30,7 @@ export const NuevaCuenta = () => {
         if( mensaje ){
             mostrarAlerta( mensaje.msg, mensaje.categoria );
         }
-
+        // eslint-disable-next-line
     }, [ mensaje, autenticado ])
     
     const handleChange = (e) => {
@@ -49,6 +49,7 @@ export const NuevaCuenta = () => {
         }
 
         //Validar email
+        // eslint-disable-next-line
         const isEmail = (/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,4})$/i).test(email);
 
         if(!isEmail){

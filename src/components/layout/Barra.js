@@ -12,6 +12,7 @@ export const Barra = () => {
         if(token){
             usuarioAutenticado()
         }
+        //eslint-disable-next-line
     }, [])
 
     return (

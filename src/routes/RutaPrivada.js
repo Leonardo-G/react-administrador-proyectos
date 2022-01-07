@@ -13,7 +13,7 @@ export const RutaPrivada = ({ component: Component, ...props}) => {
         //eslint-disable-next-line
     }, [])
     return (
-        <Route { ...props } render={ props => !autenticado && !cargando
+        <Route { ...props } render={ props => !localStorage.getItem("token")
             ? <Redirect to="/"/>
             : <Component { ...props }/>
         }

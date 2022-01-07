@@ -33,7 +33,7 @@ export const ProyectoState = (props) => {
                 }
             })
             const respuesta = await resultado.json();
-            console.log(respuesta)
+            
             dispatch({
                 type: OBTENER_PROYECTO,
                 payload: respuesta

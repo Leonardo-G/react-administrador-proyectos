@@ -15,6 +15,7 @@ export const Proyectos = () => {
         if(token){
             usuarioAutenticado(token)
         }
+        //eslint-disable-next-line
     }, [])
 
     return (
