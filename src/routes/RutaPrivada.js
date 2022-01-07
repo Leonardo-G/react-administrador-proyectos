@@ -4,7 +4,7 @@ import { AuthContext } from '../context/autenticacion/authContext';
 
 export const RutaPrivada = ({ component: Component, ...props}) => {
 
-    const { autenticado, usuarioAutenticado, cargando } = useContext( AuthContext );
+    const { usuarioAutenticado } = useContext( AuthContext );
 
     useEffect(() => {
         const token = localStorage.getItem("token")
