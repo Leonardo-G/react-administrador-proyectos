@@ -24,6 +24,7 @@ export const Login = () => {
 
         if( mensaje ){
             mostrarAlerta( mensaje.msg, mensaje.categoria );
+            setSpinner(false);
         }
         //eslint-disable-next-line
     }, [ mensaje, autenticado ])
