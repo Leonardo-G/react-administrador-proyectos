@@ -33,6 +33,10 @@ export const ProyectoState = (props) => {
                 }
             })
             const respuesta = await resultado.json();
+
+            if ( !resultado.ok ){
+                throw new Error()
+            }
             
             dispatch({
                 type: OBTENER_PROYECTO,
@@ -65,6 +69,13 @@ export const ProyectoState = (props) => {
             })
         } catch (error) {
             console.log(error)
+            dispatch({
+                type: PROYECTO_ERROR,
+                payload: {
+                    msg: "Hubo un error al eliminar el proyecto. Intente de nuevo más tarde",
+                    categoria: "alerta-error"
+                }
+            })
         }
 
     }
@@ -105,7 +116,7 @@ export const ProyectoState = (props) => {
             dispatch({
                 type: PROYECTO_ERROR,
                 payload: {
-                    msg: "Hubo un error al eliminar el proyecto. Intente de nuevo más tarde",
+                    msg: "Inicie sesión",
                     categoria: "alerta-error"
                 }
             })
