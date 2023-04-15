@@ -18,7 +18,7 @@ export const AuthState = ({ children }) => {
     //funciones
     const registrarUsuario = async (datos) => {
         try {
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/usuarios`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/register`, {
                 method: "POST",
                 body: JSON.stringify(datos),
                 headers: {

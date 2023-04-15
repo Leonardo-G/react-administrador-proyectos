@@ -17,9 +17,9 @@ export const TareaState = ({children}) => {
     //Crear las funciones
 
     //Obtener las tareas de un proyecto
-    const obtenerTareas = async id => {
+    const obtenerTareas = async (proyectoId, id)=> {
         try {
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tareas/${id}`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/proyectos/${ proyectoId }/tareas/${id}`, {
                 method: "GET",
                 headers: {
                     "x-auth-token": localStorage.getItem("token")
@@ -36,9 +36,9 @@ export const TareaState = ({children}) => {
     }
 
     //Agregar una tarea al proyecto seleccionado
-    const agregarTarea = async tarea => {
+    const agregarTarea = async (tarea, proyectoId) => {
         try {
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tareas`, { 
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/proyectos/${ proyectoId }/tareas`, { 
                 method: "POST",
                 body: JSON.stringify(tarea),
                 headers: {
@@ -65,9 +65,9 @@ export const TareaState = ({children}) => {
     }
 
     //Eliminar tarea por su id
-    const eliminarTarea = async id => {
+    const eliminarTarea = async (id, proyectoId) => {
         try {
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tareas/${id}`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/proyectos/${ proyectoId }/tareas/${id}`, {
                 method: "DELETE",
                 headers: {
                     "x-auth-token": localStorage.getItem("token")
@@ -94,9 +94,9 @@ export const TareaState = ({children}) => {
     }
 
     //Edita o modifica una tarea
-    const actualizarTarea = async tarea => {
+    const actualizarTarea = async (tarea, proyectoId) => {
         try {
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/tareas/${tarea._id}`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/proyectos/${ proyectoId }/tareas/${tarea._id}`, {
                 method: "PUT",
                 body: JSON.stringify(tarea),
                 headers: {
@@ -104,7 +104,7 @@ export const TareaState = ({children}) => {
                     "x-auth-token": localStorage.getItem("token")
                 }
             })
-            await respuesta.json()
+            await respuesta.json();
 
             dispatch({
                 type: ACTUALIZAR_TAREA,
