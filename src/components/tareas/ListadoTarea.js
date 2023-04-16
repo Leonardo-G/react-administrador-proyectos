@@ -5,7 +5,13 @@ import { Tarea } from './Tarea'
 
 export const ListadoTarea = () => {
     const { proyecto, eliminarProyecto } = useContext(ProyectoContext);
-    const { tareasProyecto, eliminarTarea, obtenerTareas, guardarTareaActual, actualizarTarea } = useContext(TareaContext)
+    const { 
+        tareasProyecto, 
+        eliminarTarea, 
+        obtenerTareas, 
+        guardarTareaActual, 
+        actualizarTarea 
+    } = useContext(TareaContext)
     //Si no hay proyectoseleccionado
     if(!proyecto) return <h2>Selecciona un proyecto</h2>;
 
@@ -26,7 +32,15 @@ export const ListadoTarea = () => {
 
                     :   
                             tareasProyecto.map( tarea => (
-                                    <Tarea key={ tarea._id } tarea={ tarea } eliminarTarea={ eliminarTarea } obtenerTareas={ obtenerTareas } proyecto={ proyecto } actualizarTarea={ actualizarTarea } guardarTareaActual={ guardarTareaActual }/>
+                                    <Tarea 
+                                        key={ tarea._id } 
+                                        tarea={ tarea } 
+                                        eliminarTarea={ eliminarTarea } 
+                                        obtenerTareas={ obtenerTareas } 
+                                        proyecto={ proyecto } 
+                                        actualizarTarea={ actualizarTarea } 
+                                        guardarTareaActual={ guardarTareaActual }
+                                    />
                             ) )
                         
                 }

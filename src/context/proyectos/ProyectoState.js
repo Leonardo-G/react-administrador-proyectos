@@ -1,5 +1,14 @@
 import React, { useReducer } from "react";
-import { AGREGAR_PROYECTO, ELIMINAR_PROYECTO, FORMULARIO_PROYECTO, OBTENER_PROYECTO, PROYECTO_ACTUAL, PROYECTO_ERROR, VALIDAR_FORMULARIO } from "../../types";
+
+import { 
+    AGREGAR_PROYECTO, 
+    ELIMINAR_PROYECTO, 
+    FORMULARIO_PROYECTO, 
+    OBTENER_PROYECTO, 
+    PROYECTO_ACTUAL, 
+    PROYECTO_ERROR, 
+    VALIDAR_FORMULARIO 
+} from "../../types";
 import { ProyectoContext } from "./proyectoContext";
 import { proyectoReducer } from "./proyectoReducer";
 
@@ -26,10 +35,10 @@ export const ProyectoState = (props) => {
     //Obtener proyectos
     const obtenerProyecto = async () => {
         try {
-            const resultado = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/proyectos`, {
+            const resultado = await fetch(`${process.env.REACT_APP_BACKEND_URL}/proyectos`, {
                 method: "GET",
                 headers: {
-                    "x-auth-token": localStorage.getItem("token")
+                    "authorization": localStorage.getItem("token")
                 }
             })
             const respuesta = await resultado.json();
@@ -51,11 +60,11 @@ export const ProyectoState = (props) => {
     const agregarProyecto = async proyecto => {
 
         try {
-            const respuesta = await fetch( `${process.env.REACT_APP_BACKEND_URL}/api/proyectos`, {
+            const respuesta = await fetch( `${process.env.REACT_APP_BACKEND_URL}/proyectos`, {
                 method: "POST",
                 body: JSON.stringify( proyecto ),
                 headers: {
-                    "x-auth-token": localStorage.getItem("token"),
+                    "authorization": localStorage.getItem("token"),
                     "Accept": "application/json",
                     'Content-Type': 'application/json'
                 }

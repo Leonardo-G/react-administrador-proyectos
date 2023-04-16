@@ -11,8 +11,8 @@ export const FormTarea = () => {
     })
 
     const { proyecto } = useContext( ProyectoContext );
-    const { errorTarea, agregarTarea, validarTarea, obtenerTareas, tareaSeleccionada, actualizarTarea } = useContext( TareaContext )
-    const [spinner, setSpinner] = useState(false)
+    const { errorTarea, agregarTarea, validarTarea, obtenerTareas, tareaSeleccionada, actualizarTarea } = useContext( TareaContext );
+    const [spinner, setSpinner] = useState(false);
 
     //Effect que detecta si hay una nueva tarea seleccionada
     useEffect(() => {
@@ -44,18 +44,16 @@ export const FormTarea = () => {
             return;
         }
         setSpinner(true)
-
         //Si es edicion o es nueva tarea
         if(tareaSeleccionada === null){
             //Agregar una nueva tarea al state
             agregarTarea({
                 proyecto: proyecto._id,
                 nombre: tarea.nombre
-            })
-            
+            }, proyecto._id)
         }else{
             //Actualizar tarea existente
-            actualizarTarea(tarea);
+            actualizarTarea(tarea, proyecto._id);
         }
 
 

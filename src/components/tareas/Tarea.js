@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, guardarTareaActual, actualizarTarea }) => {
+export const Tarea = ({ proyecto, tarea, eliminarTarea, guardarTareaActual, actualizarTarea }) => {
 
     const handleEiminar = (id) => {
-        eliminarTarea(id);
+        eliminarTarea(id, proyecto._id);
         // obtenerTareas(proyecto.id);
     }
 
@@ -13,7 +13,8 @@ export const Tarea = ({ tarea, eliminarTarea, obtenerTareas, proyecto, guardarTa
         }else{
             tarea.estado = true
         }
-        actualizarTarea(tarea)
+        
+        actualizarTarea(tarea, proyecto._id)
     }
 
     //Agregar una tarea actual cuando el usuario desee editarla

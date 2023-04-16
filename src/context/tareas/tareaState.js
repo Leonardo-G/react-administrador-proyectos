@@ -17,12 +17,12 @@ export const TareaState = ({children}) => {
     //Crear las funciones
 
     //Obtener las tareas de un proyecto
-    const obtenerTareas = async (proyectoId, id)=> {
+    const obtenerTareas = async (proyectoId)=> {
         try {
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/proyectos/${ proyectoId }/tareas/${id}`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/proyectos/${ proyectoId }/tareas`, {
                 method: "GET",
                 headers: {
-                    "x-auth-token": localStorage.getItem("token")
+                    "authorization": localStorage.getItem("token")
                 }
             })
             const resultado = await respuesta.json();
@@ -44,7 +44,7 @@ export const TareaState = ({children}) => {
                 headers: {
                     // "Accept": "application/json",
                     "Content-Type": "application/json",
-                    "x-auth-token": localStorage.getItem("token")
+                    "authorization": localStorage.getItem("token")
                 }
             })
             const resultado = await respuesta.json();
@@ -70,7 +70,7 @@ export const TareaState = ({children}) => {
             const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/proyectos/${ proyectoId }/tareas/${id}`, {
                 method: "DELETE",
                 headers: {
-                    "x-auth-token": localStorage.getItem("token")
+                    "authorization": localStorage.getItem("token")
                 }
             })
             await respuesta.json();
@@ -101,7 +101,7 @@ export const TareaState = ({children}) => {
                 body: JSON.stringify(tarea),
                 headers: {
                     "Content-Type": "application/json",
-                    "x-auth-token": localStorage.getItem("token")
+                    "authorization": localStorage.getItem("token")
                 }
             })
             await respuesta.json();
