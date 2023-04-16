@@ -23,10 +23,11 @@ export const AuthState = ({ children }) => {
                 body: JSON.stringify(datos),
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Origin": "*"
                 },
             })
-
+            
             //Rechazar promesa en caso de error
             if(!respuesta.ok){
                 const err = await respuesta.json()
@@ -34,7 +35,6 @@ export const AuthState = ({ children }) => {
             }
             
             const data = await respuesta.json();
-
             usuarioAutenticado(data.token);
 
             dispatch({
@@ -58,18 +58,21 @@ export const AuthState = ({ children }) => {
         const getToken = localStorage.getItem("token");
 
         try {
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth`, {
-                method: "GET",
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/validate`, {
+                method: "POST",
                 headers: {
-                    "x-auth-token": token || getToken
+                    "authorization": token || getToken
                 }
             });
 
             if(!respuesta.ok){
-                throw new Error()
+                const err = await respuesta.json()
+                console.log(err)
+                throw new Error(err)
             }
 
             const { usuario } = await respuesta.json();
+            
             dispatch({
                 type: OBTENER_USUARIO,
                 payload: usuario
@@ -86,7 +89,7 @@ export const AuthState = ({ children }) => {
     const iniciarSesion = async datos => {
         try {
 
-            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/auth`, {
+            const respuesta = await fetch(`${process.env.REACT_APP_BACKEND_URL}/auth/login`, {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
